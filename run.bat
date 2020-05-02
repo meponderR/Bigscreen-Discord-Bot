@@ -1,3 +1,3 @@
 @echo off
 cd Code
-run
+run.bat

@@ -18,21 +18,20 @@ ydl_opts = {
 async def on_ready():
 	print("Bot Connected")
 
-
 @client.command(name='play', brief="Plays the requested video.")
 async def play(ctx, *, url):
     if ctx.channel.id == CidSetup:
+        print("Play command issued from channel #" + ctx.channel.id)
         await ctx.channel.purge(limit=1)
         with ytdl.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
-        cmdCommand = "playlat.bat"
-        process = subprocess.Popen(cmdCommand.split(), stdout=subprocess.PIPE)
+        subprocess.call(['playlat.bat'])
 
-@client.command(name='Stop', brief="Stops the video.")
+@client.command(name='stop', brief="Stops the video.")
 async def stop(ctx):
     if ctx.channel.id == CidSetup:
+        print("Stop command issued from channel #" + ctx.channel.id)
         await ctx.channel.purge(limit=1)
-        cmdCommand = "stopvlc.bat"
-        process = subprocess.Popen(cmdCommand.split(), stdout=subprocess.PIPE)
+        subprocess.call(['stopvlc.bat'])
 
 client.run(TOKEN)
